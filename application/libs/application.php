@@ -1,9 +1,9 @@
 <?php
 namespace Libs;
-use Controller;
+use Controllers;
 
 session_start();
-require 'viewloader.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 class Application
 {
@@ -14,9 +14,8 @@ class Application
     public function __construct()
     {
         $this->init();
-        if (file_exists('./application/controller/' . $this->url_controller . '.php')) {
-            require './application/controller/' . $this->url_controller . '.php';
-            $controller = "Controller\\".$this->url_controller;
+        $controller = '\Controllers\\'.($this->url_controller);
+        if (class_exists($controller)) {
             $this->url_controller = new $controller();
             if (method_exists($this->url_controller, $this->url_action)) {
                 call_user_func_array(array($this->url_controller, $this->url_action), $this->url_parameter);
@@ -24,8 +23,7 @@ class Application
                 $this->url_controller->index();
             }
         } else {
-            require './application/controller/errorpage.php';
-            $error = new Controller\ErrorPage();
+            $error = new Controllers\ErrorPage();
             $error->error404();
         }
     }
