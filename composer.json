@@ -1,0 +1,18 @@
+{
+    "name": "filippofinke/php-mvc",
+    "description": "Simple MVC base for php",
+    "authors": [
+        {
+            "name": "filippofinke",
+            "email": "filippo.finke@samtrevano.ch"
+        }
+    ],
+    "autoload": {
+    	"psr-4": {
+    		"Controllers\\":"application/controllers/",
+    		"Libs\\":"application/libs/",
+    		"Models\\":"application/models/"
+    	}
+    },
+    "require": {}
+}
