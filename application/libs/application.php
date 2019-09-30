@@ -1,5 +1,10 @@
 <?php
+/**
+ * Applicazione principale.
+ * Base MVC di @filippofinke.
+ */
 namespace Libs;
+
 use Controllers;
 
 session_start();
@@ -23,13 +28,20 @@ class Application
                 $this->url_controller->index();
             }
         } else {
-            $error = new Controllers\ErrorPage();
-            $error->error404();
+            Controllers\ErrorPage::error404();
         }
+    }
+
+    public static function redirect($to)
+    {
+        header("Location: ".$to);
+        exit;
     }
 
     private function init()
     {
+        set_error_handler(array($this, 'errorHandler'));
+
         $url = $_SERVER['REQUEST_URI'];
         $url = substr($url, 1, strlen($url));
         $url = rtrim($url, '/');
@@ -43,5 +55,14 @@ class Application
                 $this->url_parameter[] = $url[$i];
             }
         }
+    }
+
+    public function errorHandler($errno, $errstr, $errfile, $errline)
+    {
+        ob_end_clean();
+        echo "<h1>Errore!</h1>";
+        echo "<h3><b>Messaggio di errore:</b> [$errno] $errstr</h3><br>";
+        echo "Riga: <b>$errline</b><br>File: <b>$errfile</b><br>";
+        exit(0);
     }
 }

@@ -1,10 +1,9 @@
 <?php
-use Libs\Application as Application;
-// carico il file di configurazione
-require 'application/config/config.php';
+/**
+ * File principale.
+ * Base MVC di @filippofinke.
+ */
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/application/config/config.php';
 
-// carico le classi dell'applicazione
-require 'application/libs/application.php';
-
-// faccio partire l'applicazione
-$app = new Application();
+$app = new Libs\Application();

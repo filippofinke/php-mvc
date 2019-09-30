@@ -11,7 +11,7 @@
     	"psr-4": {
     		"Controllers\\":"application/controllers/",
     		"Libs\\":"application/libs/",
-    		"Models\\":"application/models/"
+            "Models\\":"application/models/"
     	}
     },
     "require": {}

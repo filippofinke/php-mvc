@@ -1,17 +1,16 @@
 <?php
+/**
+ * Controller per gli errori.
+ * Base MVC di @filippofinke.
+ */
 namespace Controllers;
+
 use Libs\ViewLoader as ViewLoader;
 
-class ErrorPage {
-
-  public function error404()
-  {
-    ViewLoader::load('templates/404');
-  }
-
-  public function error500()
-  {
-    ViewLoader::load('templates/500');
-  }
-
+class ErrorPage
+{
+    public static function error404()
+    {
+        ViewLoader::load('errors/404');
+    }
 }

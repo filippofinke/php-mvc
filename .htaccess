@@ -1,0 +1,36 @@
+# Necessary to prevent problems when using a controller named "index" and having a root index.php
+# more here: http://httpd.apache.org/docs/2.2/content-negotiation.html
+
+#Esempio: se la cartella configurazione/ e il file configuration.php si trovano nella root del sito e si tenta di raggiungere
+#l'indirizzo monsite.com/configuration,
+#si verrà automaticamente reindirizzati sul file configuration.php se l'opzione MultiViews è attivata.
+Options -MultiViews
+
+# attiva il modulo apache RewriteEngine
+RewriteEngine On
+
+# Disallows others to look directly into /public/ folder
+Options -Indexes
+
+# When using the script within a sub-folder, put this path here, like /mysubfolder/
+# If your app is in the root of your web folder, then leave it commented out
+RewriteBase /151/2019-2020/2.esercizio_cantanti_PDO_sol/
+
+# regole di rewrite generali, se le 3 sotto sono valide allora riscrivi il link (fai partire RewriteCond)
+#non eseguirla per una directory
+RewriteCond %{REQUEST_FILENAME} !-d
+#non eseguirla per regolare file che esiste
+RewriteCond %{REQUEST_FILENAME} !-f
+#non eseguirla per un link
+RewriteCond %{REQUEST_FILENAME} !-l
+
+#riscrivo la regola
+# RewriteRule vecchia_regola nuova_regola
+# ^ parte iniziale dell'url all'interno della directory corrente, ^ sostituisce qualsiasi inizio di stringa
+# ^(.+)$  prendi tutte le URL tranne la root del server
+# QSA se c'è una querystring nell'URL originale, verrà aggiunto al rewrite, ad es giocatore?p=1 sarà riscritto index.php?url=giocatore&p=1
+# L se la rule trova un risultato non processare altre RewtireRule (non ce ne sono, quindi si ferma)
+# (.+) è richiamato dalla variabile $1 --> se scrivo giocatore lui farà index.php?url=giocatore
+#In generale: prendi il parametro che trovi e processalo come un classico parametro gi GET -->?parametro1&parametro2 ecc
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
