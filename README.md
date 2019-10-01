@@ -17,3 +17,52 @@ define('URL', 'http://YOUR_URL/PATH/');
 ! IT MUST HAVE THE / AT THE END
 ```
 If you have to use the database class change also the database parameters in the config.php
+
+### Documentation
+
+Render a view:
+```php
+use Libs\ViewLoader as ViewLoader;
+
+// Render the view at views/home/index.php
+ViewLoader::load('home/index');
+
+// Render the view at views/home/index.php 
+// with a variable, you can access $variable 
+// on the view to get 'Hello World!'
+ViewLoader::load('home/index', array(
+    'variable' => 'Hello World!'
+));
+```
+
+Get database connection:
+```php
+use Libs\Database as Database;
+
+// Get pdo connection
+$connection = Database::get();
+```
+
+Create a controller:
+```php
+<?php
+/**
+ * Controller di esempio Home.
+ * Base MVC di @filippofinke.
+ */
+namespace Controllers;
+
+// To use Application::redirect(...)
+use Libs\Application as Application;
+// To use ViewLoader::load(...)
+use Libs\ViewLoader as ViewLoader;
+
+class EmptyController
+{
+    // Route at /EmptyController/index
+    public function index()
+    {
+        //Logic here
+    }
+}
+```
