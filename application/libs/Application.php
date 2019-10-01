@@ -25,7 +25,7 @@ class Application
 
     public static function redirect($to)
     {
-        header("Location: ".$to);
+        header("Location: ".URL.$to);
         exit;
     }
 
@@ -58,7 +58,9 @@ class Application
     {
         set_error_handler(array($this, 'errorHandler'));
 
-        $url = $_SERVER['REQUEST_URI'];
+        $full_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $url = str_replace(URL, "", $full_url);
+        if($url[0] != '/') $url = '/'.$url;
         $url = substr($url, 1, strlen($url));
         $url = rtrim($url, '/');
         $url = filter_var($url, FILTER_SANITIZE_URL);

@@ -18,14 +18,14 @@ class Home
         if (!Auth::isAuthenticated()) {
             ViewLoader::load('home/index');
         } else {
-            Application::redirect("/home/home");
+            Application::redirect("home/home");
         }
     }
 
     public function home()
     {
         if (!Auth::isAuthenticated()) {
-            Application::redirect("/home/index");
+            Application::redirect("home/index");
         } else {
             $books = Books::get();
             $users = Users::get();
@@ -39,12 +39,12 @@ class Home
     public function login()
     {
         Auth::auth();
-        Application::redirect("/home/home");
+        Application::redirect("home/home");
     }
 
     public function logout()
     {
         Auth::logout();
-        Application::redirect("/home/index");
+        Application::redirect("home/index");
     }
 }
