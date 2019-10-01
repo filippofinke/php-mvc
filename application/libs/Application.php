@@ -7,28 +7,19 @@ namespace Libs;
 
 use Controllers;
 
-session_start();
-require __DIR__ . '/../../vendor/autoload.php';
-
 class Application
 {
     private $url_controller = null;
     private $url_action = null;
     private $url_parameter = [];
+    private $default_controller = null;
 
-    public function __construct()
-    {
-        $this->init();
-        $controller = '\Controllers\\'.($this->url_controller);
+    public function setDefaultController($controller) {
+        $controller = '\Controllers\\'.$controller;
         if (class_exists($controller)) {
-            $this->url_controller = new $controller();
-            if (method_exists($this->url_controller, $this->url_action)) {
-                call_user_func_array(array($this->url_controller, $this->url_action), $this->url_parameter);
-            } else {
-                $this->url_controller->index();
-            }
+            $this->default_controller = new $controller();
         } else {
-            Controllers\ErrorPage::error404();
+            trigger_error("Controller $controller not found!");
         }
     }
 
@@ -36,6 +27,31 @@ class Application
     {
         header("Location: ".$to);
         exit;
+    }
+
+    public function __construct()
+    {
+        $this->init();
+    }
+
+    public function run() {
+        $controller = '\Controllers\\'.($this->url_controller);
+        if (class_exists($controller)) {
+            $this->url_controller = new $controller();
+            if (method_exists($this->url_controller, $this->url_action)) {
+                call_user_func_array(array($this->url_controller, $this->url_action), $this->url_parameter);
+            } else if(method_exists($this->url_controller, 'index') && $this->url_action == null) {
+                $this->url_controller->index();
+            } else {
+                Controllers\ErrorPage::error404();
+            }
+        } else {
+            if($this->url_controller == null && $this->default_controller != null && method_exists($this->default_controller, 'index')) {
+                $this->default_controller->index();
+            } else {
+                Controllers\ErrorPage::error404();
+            }
+        }
     }
 
     private function init()
