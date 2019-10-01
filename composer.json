@@ -13,6 +13,5 @@
     		"Libs\\":"application/libs/",
             "Models\\":"application/models/"
     	}
-    },
-    "require": {}
+    }
 }

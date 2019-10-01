@@ -14,7 +14,7 @@ Options -Indexes
 
 # When using the script within a sub-folder, put this path here, like /mysubfolder/
 # If your app is in the root of your web folder, then leave it commented out
-RewriteBase /151/2019-2020/2.esercizio_cantanti_PDO_sol/
+#RewriteBase /CARTELLA
 
 # regole di rewrite generali, se le 3 sotto sono valide allora riscrivi il link (fai partire RewriteCond)
 #non eseguirla per una directory
