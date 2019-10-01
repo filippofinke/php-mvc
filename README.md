@@ -35,6 +35,16 @@ ViewLoader::load('home/index', array(
 ));
 ```
 
+Do a redirect:
+```php
+use Libs\Application as Application;
+
+// Redirect to controller 'controller' and call method 'action'
+Application::redirect("controller/action");
+
+! IT MUST BE AT THE END OF YOUR METHOD BECAUSE IT KILLS YOUR SCRIPT
+```
+
 Get database connection:
 ```php
 use Libs\Database as Database;
