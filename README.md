@@ -58,9 +58,9 @@ Create a controller:
 <?php
 namespace Controllers;
 
-// To use Application::redirect(...)
+// In order to use Application::redirect(...)
 use Libs\Application as Application;
-// To use ViewLoader::load(...)
+// In order to use ViewLoader::load(...)
 use Libs\ViewLoader as ViewLoader;
 
 class EmptyController
