@@ -11,8 +11,11 @@ class Users
 {
     public static function get()
     {
+        /*
+        Esempio:
         $query = Database::get()->prepare("SELECT * FROM USERS");
         $query->execute();
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $query->fetchAll(\PDO::FETCH_ASSOC);*/
+        return array();
     }
 }
