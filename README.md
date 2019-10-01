@@ -46,10 +46,6 @@ $connection = Database::get();
 Create a controller:
 ```php
 <?php
-/**
- * Controller di esempio Home.
- * Base MVC di @filippofinke.
- */
 namespace Controllers;
 
 // To use Application::redirect(...)
