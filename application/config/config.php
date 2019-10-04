@@ -6,6 +6,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
+define('CHECK_FOR_UPDATES', true);
 define('URL', 'http://127.0.0.1/');
 
 define('DB_USER', 'root');

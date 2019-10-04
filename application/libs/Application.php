@@ -13,6 +13,11 @@ class Application
     private $url_action = null;
     private $url_parameter = [];
     private $default_controller = null;
+    private $middlewares = [];
+
+    public function addMiddleware($controller, $route, $function) {
+       $this->middlewares[strtolower($controller)][$route] = $function;
+    }
 
     public function setDefaultController($controller) {
         $controller = '\Controllers\\'.$controller;
@@ -35,9 +40,13 @@ class Application
     }
 
     public function run() {
+        $controller_name = $this->url_controller;
         $controller = '\Controllers\\'.($this->url_controller);
         if (class_exists($controller)) {
             $this->url_controller = new $controller();
+            if(isset($this->middlewares[$controller_name][$this->url_action])) {
+                $this->middlewares[$controller_name][$this->url_action]();
+            }
             if (method_exists($this->url_controller, $this->url_action)) {
                 call_user_func_array(array($this->url_controller, $this->url_action), $this->url_parameter);
             } else if(method_exists($this->url_controller, 'index') && $this->url_action == null) {

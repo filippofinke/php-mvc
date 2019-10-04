@@ -72,3 +72,11 @@ class EmptyController
     }
 }
 ```
+
+Add a middleware to a route:
+```php
+// Adding a function before the Home controller index action.
+$app->addMiddleware('Home', 'index', function() {
+    echo "<h1>Before middleware!</h1>";
+});
+```
