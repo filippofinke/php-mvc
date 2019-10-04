@@ -11,8 +11,8 @@ require __DIR__ . '/application/config/config.php';
 if (CHECK_FOR_UPDATES) {
     $version = file_get_contents("version");
     if ($version < @file_get_contents("https://raw.githubusercontent.com/filippofinke/php-mvc/master/version")) {
-        echo "A new version is avaiable, go to <a href='https://github.com/filippofinke/php-mvc/'>https://github.com/filippofinke/php-mvc/</a> to download it!";
-        echo "<br>Or disable automatic updates check in the config.php file.";
+        echo "<h1>A new version is avaiable <a href='https://github.com/filippofinke/php-mvc/'>https://github.com/filippofinke/php-mvc/</a>!";
+        echo "<br>If you want to keep the current version disable automatic updates check in the config.php file.</h1>";
         exit;
     }
 }
