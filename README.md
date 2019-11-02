@@ -1,9 +1,6 @@
 # php-mvc
 Simple MVC base for php
 
-## Windows
-> Just edit base folder in .htaccess
-
 ### How to 
 
 If your project is in a subfolder edit line 17 of the .htaccess file to
@@ -80,3 +77,8 @@ $app->addMiddleware('Home', 'index', function() {
     echo "<h1>Before middleware!</h1>";
 });
 ```
+
+Generator:
+
+The generator script allows you to create a database table and a model class automatically.
+> php generator.php
