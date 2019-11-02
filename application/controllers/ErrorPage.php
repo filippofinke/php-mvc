@@ -5,7 +5,7 @@
  */
 namespace Controllers;
 
-use Libs\ViewLoader as ViewLoader;
+use Libs\ViewLoader;
 
 class ErrorPage
 {

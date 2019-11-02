@@ -5,11 +5,11 @@
  */
 namespace Controllers;
 
-use Libs\Application as Application;
-use Libs\ViewLoader as ViewLoader;
-use Libs\Auth as Auth;
-use Models\Books as Books;
-use Models\Users as Users;
+use Libs\Application;
+use Libs\ViewLoader;
+use Libs\Auth;
+use Models\Books;
+use Models\Users;
 
 class Home
 {

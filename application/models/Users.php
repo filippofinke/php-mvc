@@ -4,8 +4,7 @@
  * Base MVC di @filippofinke.
  */
 namespace Models;
-
-use Libs\Database as Database;
+use Libs\Database;
 
 class Users
 {
