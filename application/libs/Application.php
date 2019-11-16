@@ -12,6 +12,7 @@ class Application
     private $url_controller = null;
     private $url_action = null;
     private $url_parameter = [];
+    private $default_controller_name = null;
     private $default_controller = null;
     private $middlewares = [];
 
@@ -19,9 +20,10 @@ class Application
        $this->middlewares[strtolower($controller)][$route] = $function;
     }
 
-    public function setDefaultController($controller) {
-        $controller = '\Controllers\\'.$controller;
+    public function setDefaultController($name) {
+        $controller = '\Controllers\\'.$name;
         if (class_exists($controller)) {
+            $this->default_controller_name = strtolower($name);
             $this->default_controller = new $controller();
         } else {
             trigger_error("Controller $controller not found!");
@@ -39,14 +41,18 @@ class Application
         $this->init();
     }
 
+    private function callMiddleware($controller_name, $action = null) {
+        if(isset($this->middlewares[$controller_name][$action])) {
+            $this->middlewares[$controller_name][$action]();
+        }
+    }
+
     public function run() {
         $controller_name = $this->url_controller;
         $controller = '\Controllers\\'.($this->url_controller);
         if (class_exists($controller)) {
             $this->url_controller = new $controller();
-            if(isset($this->middlewares[$controller_name][$this->url_action])) {
-                $this->middlewares[$controller_name][$this->url_action]();
-            }
+            $this->callMiddleware($controller_name, $this->url_action);
             if (method_exists($this->url_controller, $this->url_action)) {
                 call_user_func_array(array($this->url_controller, $this->url_action), $this->url_parameter);
             } else if(method_exists($this->url_controller, 'index') && $this->url_action == null) {
@@ -56,6 +62,7 @@ class Application
             }
         } else {
             if($this->url_controller == null && $this->default_controller != null && method_exists($this->default_controller, 'index')) {
+                $this->callMiddleware($this->default_controller_name, 'index');
                 $this->default_controller->index();
             } else {
                 Controllers\ErrorPage::error404();
